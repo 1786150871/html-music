@@ -394,7 +394,7 @@ function playSong(index) {
     const song = songs[index];
     
     // 设置音频源
-    const githubRepo = "https://onlygulian.netlify.app/";
+    const githubRepo = "https://1786150871.github.io/my-music-site/music/";
     audioPlayer.src = `${githubRepo}${song.filename}`;
     
     // 更新UI
