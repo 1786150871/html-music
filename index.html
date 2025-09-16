@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的音乐空间</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 粒子背景容器 -->
+    <div id="particle-container"></div>
+    
+    <div class="container">
+        <!-- 页面标题和背景控制 -->
+        <header class="site-header">
+            <div class="header-content">
+                <h1>我的音乐空间</h1>
+                <p>聆听心灵的旋律</p>
+            </div>
+            <div class="background-controls">
+                <button id="toggle-theme" class="theme-btn" title="切换明暗模式">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+        
+        <!-- 搜索和排序区域 -->
+        <div class="search-sort-container">
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="search-input" placeholder="搜索歌曲、歌手...">
+                <button id="search-btn" class="search-button"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="sort-controls">
+                <label for="sort-by">排序方式:</label>
+                <select id="sort-by" class="sort-select">
+                    <option value="added">添加时间</option>
+                    <option value="name">歌曲名称</option>
+                    <option value="artist">歌手名称</option>
+                </select>
+                <button id="sort-order" class="sort-order-btn" title="切换排序顺序">
+                    <i class="fas fa-sort-amount-up"></i>
+                </button>
+            </div>
+        </div>
+        <div id="search-results" class="search-results"></div>
+        
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 左侧：播放器和添加歌曲区域 -->
+            <div class="left-column">
+                <!-- 播放器区域 -->
+                <section class="player-section">
+                    <div class="album-cover">
+                        <img src="https://picsum.photos/seed/music/300/300" alt="专辑封面" id="album-cover">
+                        <div class="vinyl-spin"></div>
+                    </div>
+                    
+                    <div class="player-controls">
+                        <h2 id="current-song-title">未播放歌曲</h2>
+                        <p id="current-song-artist">未知艺术家</p>
+                        
+                        <div class="progress-container">
+                            <span id="current-time">00:00</span>
+                            <div class="progress-bar">
+                                <div class="progress" id="progress"></div>
+                            </div>
+                            <span id="total-time">00:00</span>
+                        </div>
+                        
+                        <div class="control-buttons">
+                            <button id="shuffle-btn" class="control-btn" title="随机播放">
+                                <i class="fas fa-random"></i>
+                            </button>
+                            <button id="prev-btn" class="control-btn" title="上一首">
+                                <i class="fas fa-step-backward"></i>
+                            </button>
+                            <button id="play-btn" class="play-pause-btn" title="播放/暂停">
+                                <i class="fas fa-play" id="play-icon"></i>
+                            </button>
+                            <button id="next-btn" class="control-btn" title="下一首">
+                                <i class="fas fa-step-forward"></i>
+                            </button>
+                            <button id="repeat-btn" class="control-btn" title="循环模式">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="additional-controls">
+                            <div class="volume-control">
+                                <i class="fas fa-volume-up" id="volume-icon"></i>
+                                <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="1">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 添加歌曲区域 -->
+                <section class="add-song-section">
+                    <h3><i class="fas fa-plus-circle"></i> 添加新歌曲</h3>
+                    <form id="add-song-form" class="add-song-form">
+                        <div class="form-group">
+                            <label for="song-file">选择音频文件:</label>
+                            <input type="file" id="song-file" accept="audio/*" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group half-width">
+                                <label for="song-name">歌曲名称:</label>
+                                <input type="text" id="song-name" placeholder="输入歌曲名" required>
+                            </div>
+                            <div class="form-group half-width">
+                                <label for="song-artist">歌手/乐队:</label>
+                                <input type="text" id="song-artist" placeholder="输入歌手名" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn">添加歌曲</button>
+                    </form>
+                </section>
+            </div>
+            
+            <!-- 右侧：歌曲列表区域 -->
+            <div class="right-column">
+                <section class="song-list-section">
+                    <div class="song-list-header">
+                        <h3>我的歌单</h3>
+                        <div class="song-count">
+                            <span id="song-count-display">0</span> 首歌曲
+                        </div>
+                    </div>
+                    
+                    <div class="song-table-container">
+                        <table id="song-table" class="song-table">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>歌名</th>
+                                    <th>歌手/乐队</th>
+                                    <th>添加时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="song-table-body">
+                                <!-- 歌曲数据将通过JavaScript动态填充 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+        
+        <!-- 页脚 -->
+        <footer class="site-footer">
+            <p>&copy; 2023 我的音乐空间 | 所有音乐由用户自行上传</p>
+        </footer>
+    </div>
+    
+    <!-- 音频元素 -->
+    <audio id="audio-player" preload="metadata">
+        您的浏览器不支持音频播放
+    </audio>
+    
+    <script src="script.js"></script>
+</body>
+</html>
