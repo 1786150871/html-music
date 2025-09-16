@@ -394,9 +394,7 @@ function playSong(index) {
     const song = songs[index];
     
     // 设置音频源
-    const githubRepo = "https://github.com/1786150871/my-music-site/tree/main/music";
-    audioPlayer.src = `${githubRepo}${song.filename}`;
-    
+    audioPlayer.src = `music/${song.filename}`;
     // 更新UI
     currentSongTitle.textContent = song.name;
     currentSongArtist.textContent = song.artist;
